@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>Shield of Silence (SSLD) — Allianz-Hub</title>
+  <meta name="description" content="Allianz-Hub für SSLD: Interner & externer Text, Regeln, Prinzipien und Discord-Einladung." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#070b14;
+      --bg1:#0b1220;
+      --panel: rgba(10, 16, 30, .72);
+      --panel2: rgba(10, 16, 30, .56);
+      --stroke: rgba(255,255,255,.10);
+      --stroke2: rgba(255,255,255,.14);
+
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --soft: rgba(255,255,255,.55);
+
+      --accent:#7c5cff;     /* violet */
+      --accent2:#22d3ee;    /* cyan */
+      --warn:#ff4d6d;
+      --good:#44ffb1;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --shadow2: 0 10px 34px rgba(0,0,0,.38);
+
+      --radius: 22px;
+      --radius2: 16px;
+      --max: 1120px;
+
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% 10%, rgba(124,92,255,.30), transparent 60%),
+        radial-gradient(900px 520px at 80% 25%, rgba(34,211,238,.20), transparent 58%),
+        radial-gradient(800px 520px at 50% 90%, rgba(255,77,109,.12), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      font-family: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      overflow-x:hidden;
+    }
+
+    /* subtle starfield */
+    .stars{
+      position: fixed;
+      inset: 0;
+      pointer-events:none;
+      opacity:.55;
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.8), transparent 60%),
+        radial-gradient(1px 1px at 35% 70%, rgba(255,255,255,.7), transparent 60%),
+        radial-gradient(1px 1px at 60% 30%, rgba(255,255,255,.65), transparent 60%),
+        radial-gradient(1px 1px at 80% 55%, rgba(255,255,255,.6), transparent 60%),
+        radial-gradient(1px 1px at 15% 85%, rgba(255,255,255,.55), transparent 60%),
+        radial-gradient(1px 1px at 92% 18%, rgba(255,255,255,.45), transparent 60%),
+        radial-gradient(1px 1px at 72% 88%, rgba(255,255,255,.55), transparent 60%),
+        radial-gradient(1px 1px at 48% 48%, rgba(255,255,255,.35), transparent 60%);
+      filter: blur(.1px);
+    }
+
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding: 26px 18px 70px}
+
+    /* top nav */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(7,11,20,.82), rgba(7,11,20,.56));
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .nav{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 220px;
+    }
+    .sigil{
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      position: relative;
+      background:
+        radial-gradient(14px 14px at 30% 35%, rgba(34,211,238,.95), transparent 60%),
+        radial-gradient(18px 18px at 70% 70%, rgba(124,92,255,.95), transparent 62%),
+        linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.06));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 10px 26px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+    .sigil:after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: conic-gradient(from 180deg, rgba(124,92,255,.0), rgba(124,92,255,.35), rgba(34,211,238,.25), rgba(124,92,255,.0));
+      animation: spin 10s linear infinite;
+      opacity:.75;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .brand h1{
+      font-family:"Orbitron", sans-serif;
+      font-size: 14px;
+      letter-spacing: .18em;
+      margin:0;
+      text-transform: uppercase;
+      line-height:1.05;
+    }
+    .brand p{
+      margin:2px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing:.04em;
+    }
+
+    .navlinks{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      text-decoration:none;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      font-size: 13px;
+      color: rgba(255,255,255,.86);
+      user-select:none;
+    }
+    .pill:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.16);
+    }
+    .pill:active{transform: translateY(0px) scale(.99)}
+    .dot{
+      width: 8px; height:8px; border-radius: 99px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 4px rgba(124,92,255,.15);
+    }
+
+    /* hero */
+    .hero{
+      padding: 34px 0 18px;
+      display:grid;
+      gap: 16px;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+    @media (max-width: 920px){
+      .heroGrid{grid-template-columns: 1fr; }
+      .brand{min-width:auto}
+    }
+
+    .heroMain{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      padding: clamp(18px, 3.2vw, 30px);
+      position: relative;
+      overflow:hidden;
+    }
+    .heroMain:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(900px 420px at 10% 20%, rgba(124,92,255,.22), transparent 62%),
+        radial-gradient(620px 360px at 85% 30%, rgba(34,211,238,.18), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .heroMain > *{position:relative}
+
+    .kicker{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      color: var(--muted);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+    .kicker .line{
+      height:1px; flex:1;
+      background: linear-gradient(90deg, rgba(255,255,255,.0), rgba(255,255,255,.18));
+    }
+
+    .title{
+      font-family:"Orbitron", sans-serif;
+      margin: 0;
+      font-size: clamp(28px, 4.4vw, 52px);
+      line-height: 1.03;
+      letter-spacing: .02em;
+    }
+    .subtitle{
+      margin: 12px 0 0;
+      font-size: clamp(14px, 1.6vw, 18px);
+      color: rgba(255,255,255,.78);
+      max-width: 62ch;
+    }
+
+    .ctaRow{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+      align-items:center;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+      font-weight: 700;
+      letter-spacing: .02em;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+      box-shadow: var(--shadow2);
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.22);
+    }
+    .btn:active{transform: translateY(0px) scale(.99)}
+    .btn.primary{
+      border-color: rgba(124,92,255,.40);
+      background: linear-gradient(135deg, rgba(124,92,255,.92), rgba(34,211,238,.70));
+      color: rgba(7,11,20,.95);
+      box-shadow: 0 18px 50px rgba(124,92,255,.22);
+    }
+    .btn.primary:hover{
+      box-shadow: 0 22px 62px rgba(124,92,255,.28);
+      filter: saturate(1.05);
+    }
+
+    .discordMark{
+      width: 18px; height: 18px;
+      display:inline-block;
+    }
+
+    .heroAside{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow2);
+      padding: 18px;
+      overflow:hidden;
+      position:relative;
+    }
+    .heroAside:before{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(340px 240px at 20% 10%, rgba(255,77,109,.16), transparent 60%),
+        radial-gradient(360px 260px at 80% 80%, rgba(34,211,238,.12), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .heroAside > *{position:relative}
+    .asideTitle{
+      font-family:"Orbitron", sans-serif;
+      margin: 0 0 8px;
+      font-size: 14px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.82);
+    }
+    .asideText{
+      margin: 0;
+      color: rgba(255,255,255,.72);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .copyRow{
+      margin-top: 12px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+    .copyBox{
+      flex: 1 1 190px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(255,255,255,.82);
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .copyBtn{
+      appearance:none;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.9);
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-weight: 800;
+      letter-spacing:.02em;
+      cursor:pointer;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+    .copyBtn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.22)}
+    .copyBtn:active{transform: translateY(0px) scale(.99)}
+    .toast{
+      margin-top: 10px;
+      color: rgba(255,255,255,.75);
+      font-size: 12px;
+      min-height: 16px;
+    }
+
+    /* sections */
+    main{padding-top: 8px}
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    @media (max-width: 920px){
+      .grid2{grid-template-columns: 1fr;}
+    }
+
+    section.panel{
+      border-radius: var(--radius);
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      position:relative;
+    }
+    section.panel:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,.06), rgba(255,255,255,0) 40%),
+        radial-gradient(900px 380px at 20% -10%, rgba(124,92,255,.10), transparent 60%),
+        radial-gradient(700px 360px at 90% 110%, rgba(34,211,238,.08), transparent 60%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .panel > *{position:relative}
+    .panelHead{
+      padding: 18px 18px 0;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .panelHead h2{
+      margin: 0;
+      font-family:"Orbitron", sans-serif;
+      font-size: 16px;
+      letter-spacing:.14em;
+      text-transform: uppercase;
+    }
+    .tag{
+      font-size: 12px;
+      color: rgba(255,255,255,.78);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      border-radius: 999px;
+      padding: 6px 10px;
+      letter-spacing:.06em;
+      text-transform: uppercase;
+    }
+    .panelBody{
+      padding: 14px 18px 18px;
+    }
+
+    .lead{
+      margin: 0 0 12px;
+      color: rgba(255,255,255,.84);
+      font-weight: 700;
+    }
+    .text{
+      margin: 0;
+      color: rgba(255,255,255,.76);
+      line-height: 1.65;
+      font-size: 14.5px;
+    }
+    .text strong{color: rgba(255,255,255,.92)}
+    .text em{color: rgba(255,255,255,.86)}
+    .hr{
+      height:1px;
+      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.12), rgba(255,255,255,0));
+      margin: 14px 0;
+    }
+
+    ul.clean{
+      margin: 10px 0 0;
+      padding: 0;
+      list-style: none;
+      display:grid;
+      gap: 10px;
+    }
+    ul.clean li{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      color: rgba(255,255,255,.78);
+      line-height: 1.55;
+      font-size: 14.5px;
+    }
+    .bullet{
+      width: 18px; height: 18px; border-radius: 6px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      display:grid;
+      place-items:center;
+      flex: 0 0 18px;
+      margin-top: 2px;
+    }
+    .bullet svg{width: 12px; height: 12px; opacity:.9}
+    .quote{
+      margin: 12px 0 0;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.80);
+      font-style: italic;
+    }
+
+    /* reveal */
+    .reveal{
+      opacity:0;
+      transform: translateY(10px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.in{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    footer{
+      padding: 18px 0 0;
+      color: rgba(255,255,255,.56);
+      font-size: 12px;
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,.08);
+      margin-top: 18px;
+    }
+    .tiny a{color: rgba(255,255,255,.72); text-decoration:none; border-bottom: 1px solid rgba(255,255,255,.18)}
+    .tiny a:hover{border-bottom-color: rgba(255,255,255,.36)}
+  </style>
+</head>
+
+<body>
+  <div class="stars" aria-hidden="true"></div>
+
+  <header>
+    <div class="nav">
+      <div class="brand" aria-label="Allianz Branding">
+        <div class="sigil" aria-hidden="true"></div>
+        <div>
+          <h1>Shield of Silence <span style="opacity:.78">[SSLD]</span></h1>
+          <p>Allianz-Hub · Regeln · Prinzipien · Discord</p>
+        </div>
+      </div>
+
+      <nav class="navlinks" aria-label="Sektionen">
+        <a class="pill" href="#intern"><span class="dot" aria-hidden="true"></span>Interner Text</a>
+        <a class="pill" href="#extern"><span class="dot" aria-hidden="true"></span>Externer Text</a>
+        <a class="pill" href="#discord"><span class="dot" aria-hidden="true"></span>Discord</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <section class="hero">
+      <div class="heroGrid">
+        <div class="heroMain reveal">
+          <div class="kicker">
+            <span>SSLD</span>
+            <span class="line" aria-hidden="true"></span>
+            <span>Ruhig. Strategisch. Gemeinsam.</span>
+          </div>
+
+          <h2 class="title">Der Schild, der den Sturm aufhält.</h2>
+          <p class="subtitle">
+            Diese Seite bündelt unseren internen & externen Allianztext (OGame) und den direkten Discord‑Beitritt.
+            Ideal zum Teilen als „Allianz‑Homepage“.
+          </p>
+
+          <div class="ctaRow">
+            <a class="btn primary" href="https://discord.gg/V2PcsFPcF7" target="_blank" rel="noopener">
+              <svg class="discordMark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M19.6 6.4a15.2 15.2 0 0 0-3.8-1.2l-.5 1a14.7 14.7 0 0 0-6.6 0l-.5-1a15.2 15.2 0 0 0-3.8 1.2C2.9 9.1 2.2 11.7 2.4 14.3c1.5 1.1 3 1.8 4.6 2.2l.7-1.2c-.5-.2-1-.5-1.5-.8l.3-.2c2.9 1.3 6.1 1.3 9 0l.3.2c-.5.3-1 .6-1.5.8l.7 1.2c1.6-.4 3.1-1.1 4.6-2.2.2-2.6-.5-5.2-2-7.9Z" fill="rgba(255,255,255,.95)"/>
+                <path d="M9.2 13.4c-.7 0-1.3-.6-1.3-1.4s.6-1.4 1.3-1.4c.8 0 1.4.6 1.4 1.4s-.6 1.4-1.4 1.4Zm5.6 0c-.7 0-1.3-.6-1.3-1.4s.6-1.4 1.3-1.4c.8 0 1.4.6 1.4 1.4s-.6 1.4-1.4 1.4Z" fill="rgba(7,11,20,.85)"/>
+              </svg>
+              Discord beitreten
+            </a>
+
+            <a class="btn" href="#extern">
+              Externer Text lesen
+            </a>
+
+            <a class="btn" href="#intern">
+              Interner Text lesen
+            </a>
+          </div>
+        </div>
+
+        <aside class="heroAside reveal" id="discord" aria-label="Discord Schnellzugriff">
+          <h3 class="asideTitle">Discord — Schnellzugriff</h3>
+          <p class="asideText">
+            Wenn OGame das Discord‑Logo im Allianztext blockiert, funktioniert es hier garantiert:
+            Link kopieren oder direkt beitreten.
+          </p>
+
+          <div class="copyRow">
+            <div class="copyBox" id="discordLink" title="Discord-Link">https://discord.gg/V2PcsFPcF7</div>
+            <button class="copyBtn" id="copyBtn" type="button">Kopieren</button>
+          </div>
+          <div class="toast" id="toast" aria-live="polite"></div>
+
+          <div class="hr" aria-hidden="true"></div>
+
+          <p class="asideText" style="margin:0">
+            Beitritts-Info:<br>
+            <strong>Zum Beitreten einfach auf „Tritt gern unserem Discord Server bei“ klicken/tippen, um zum Server zu gelangen.</strong>
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <main>
+      <div class="grid2">
+        <!-- Intern -->
+        <section class="panel reveal" id="intern" aria-label="Interner Allianztext">
+          <div class="panelHead">
+            <h2>Interner Text</h2>
+            <span class="tag">Nur Mitglieder</span>
+          </div>
+          <div class="panelBody">
+            <p class="lead">Willkommen in der Allianz!</p>
+            <p class="text">
+              Schön, dass ihr Teil von <strong>SSLD</strong> seid. Hier ein paar kurze Infos für unser Zusammenspiel:
+            </p>
+
+            <div class="hr" aria-hidden="true"></div>
+
+            <p class="text"><strong>Gemeinschaft:</strong> Wenn jemand Unterstützung braucht, egal in welcher Art und Weise, einfach im Allianz‑Chat oder per Rundmail melden.</p>
+            <p class="text" style="margin-top:10px"><strong>Sicherheit:</strong> Bitte achtet auf eure Sicherheit und Verteidigung, um Verluste möglichst gering zu halten. Wir sind zwar eine Passive Allianz, aber wir wollen den Feinden keine Geschenke machen oder sie unterstützen und wollen ein Bündnis.</p>
+            <p class="text" style="margin-top:10px"><strong>Konflikte:</strong> Sollte euch jemand massiv angehen oder beleidigen, gebt der Allianzführung Bescheid. Wir suchen dann gemeinsam nach einer Lösung für das Problem.</p>
+
+            <div class="hr" aria-hidden="true"></div>
+
+            <p class="text">
+              <strong>Discord:</strong>
+              <a href="https://discord.gg/V2PcsFPcF7" target="_blank" rel="noopener" style="color:rgba(255,255,255,.92); border-bottom:1px solid rgba(255,255,255,.22); text-decoration:none">
+                Tritt gern unserem Discord Server bei
+              </a>
+            </p>
+
+            <p class="text" style="margin-top:10px; color: rgba(255,255,255,.72)">
+              Info: Zum beitreten einfach auf <em>„Tritt gern unserem Discord Server bei“</em> klicken/tippen um zum Server zu gelangen.
+            </p>
+          </div>
+        </section>
+
+        <!-- Extern -->
+        <section class="panel reveal" id="extern" aria-label="Externer Allianztext">
+          <div class="panelHead">
+            <h2>Externer Bereich</h2>
+            <span class="tag">Öffentlich</span>
+          </div>
+          <div class="panelBody">
+            <p class="lead">Shield of Silence <span style="opacity:.82">[SSLD]</span></p>
+
+            <p class="text">Wir sind kein lauter Sturm.<br>Wir sind der Schild, der ihn aufhält.</p>
+
+            <div class="hr" aria-hidden="true"></div>
+
+            <p class="text">
+              Shield of Silence steht für Zusammenhalt, Schutz und strategische Stärke.<br>
+              Wir greifen nicht grundlos an – aber wir verteidigen kompromisslos.
+            </p>
+
+            <div class="hr" aria-hidden="true"></div>
+
+            <p class="text"><strong>Unsere Prinzipien:</strong></p>
+            <ul class="clean" aria-label="Prinzipien">
+              <li>
+                <span class="bullet" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7 10 17l-5-5" stroke="rgba(68,255,177,.95)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span>Unterstützung untereinander steht an erster Stelle</span>
+              </li>
+              <li>
+                <span class="bullet" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7 10 17l-5-5" stroke="rgba(68,255,177,.95)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span>Kein unnötiger Krieg oder Chaos</span>
+              </li>
+              <li>
+                <span class="bullet" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7 10 17l-5-5" stroke="rgba(68,255,177,.95)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span>Verteidigung bei Angriffen – geschlossen und effektiv</span>
+              </li>
+              <li>
+                <span class="bullet" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7 10 17l-5-5" stroke="rgba(68,255,177,.95)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span>Respektvoller Umgang innerhalb der Allianz</span>
+              </li>
+            </ul>
+
+            <div class="hr" aria-hidden="true"></div>
+
+            <p class="text"><strong>Was wir bieten:</strong></p>
+            <ul class="clean" aria-label="Was wir bieten">
+              <li>
+                <span class="bullet" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2v20M2 12h20" stroke="rgba(34,211,238,.95)" stroke-width="2.2" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <span>Hilfe für neue und erfahrene Spieler</span>
+              </li>
+              <li>
+                <span class="bullet" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2v20M2 12h20" stroke="rgba(34,211,238,.95)" stroke-width="2.2" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <span>Gemeinsame Verteidigungsstrategien</span>
+              </li>
+              <li>
+                <span class="bullet" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2v20M2 12h20" stroke="rgba(34,211,238,.95)" stroke-width="2.2" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <span>Aktive Gemeinschaft</span>
+              </li>
+              <li>
+                <span class="bullet" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2v20M2 12h20" stroke="rgba(34,211,238,.95)" stroke-width="2.2" stroke-linecap="round"/>
+                  </svg>
+                </span>
+                <span>Ruhe statt Drama</span>
+              </li>
+            </ul>
+
+            <div class="hr" aria-hidden="true"></div>
+
+            <p class="text"><strong>Unsere Philosophie:</strong></p>
+            <div class="quote">„Wir sprechen wenig – aber wenn wir handeln, dann gemeinsam.“</div>
+
+            <div class="hr" aria-hidden="true"></div>
+
+            <p class="text"><strong>Aufnahme:</strong><br>Spieler, die Teamgeist zeigen und Loyalität verstehen, sind willkommen.</p>
+
+            <p class="text" style="margin-top:12px; color: rgba(255,255,255,.86)">
+              <strong>Shield of Silence</strong> – Der stille Schutz im Universum.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel reveal" style="margin-top:16px" aria-label="Discord Banner">
+        <div class="panelHead">
+          <h2>Discord</h2>
+          <span class="tag">Community</span>
+        </div>
+        <div class="panelBody" style="display:grid; grid-template-columns: 1.2fr .8fr; gap: 16px; align-items:center">
+          <div>
+            <p class="lead" style="margin-bottom:8px">Tritt gern unserem Discord Server bei</p>
+            <p class="text" style="margin:0">
+              Koordination, Hilfe, Verteidigung, schnelle Absprachen – alles an einem Ort.
+              Wenn du den Link teilst, nutze diesen hier:
+              <a href="https://discord.gg/V2PcsFPcF7" target="_blank" rel="noopener"
+                 style="color: rgba(255,255,255,.92); border-bottom: 1px solid rgba(255,255,255,.22); text-decoration:none">
+                discord.gg/V2PcsFPcF7
+              </a>
+            </p>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:12px; flex-wrap:wrap">
+            <a class="btn primary" href="https://discord.gg/V2PcsFPcF7" target="_blank" rel="noopener" aria-label="Discord beitreten">
+              <svg class="discordMark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M19.6 6.4a15.2 15.2 0 0 0-3.8-1.2l-.5 1a14.7 14.7 0 0 0-6.6 0l-.5-1a15.2 15.2 0 0 0-3.8 1.2C2.9 9.1 2.2 11.7 2.4 14.3c1.5 1.1 3 1.8 4.6 2.2l.7-1.2c-.5-.2-1-.5-1.5-.8l.3-.2c2.9 1.3 6.1 1.3 9 0l.3.2c-.5.3-1 .6-1.5.8l.7 1.2c1.6-.4 3.1-1.1 4.6-2.2.2-2.6-.5-5.2-2-7.9Z" fill="rgba(255,255,255,.95)"/>
+                <path d="M9.2 13.4c-.7 0-1.3-.6-1.3-1.4s.6-1.4 1.3-1.4c.8 0 1.4.6 1.4 1.4s-.6 1.4-1.4 1.4Zm5.6 0c-.7 0-1.3-.6-1.3-1.4s.6-1.4 1.3-1.4c.8 0 1.4.6 1.4 1.4s-.6 1.4-1.4 1.4Z" fill="rgba(7,11,20,.85)"/>
+              </svg>
+              Beitreten
+            </a>
+            <button class="btn" type="button" id="copyBtn2" aria-label="Discord Link kopieren">
+              Link kopieren
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="tiny">
+        <div>© <span id="year"></span> Shield of Silence (SSLD). Diese Seite ist eine Fan-/Allianzseite.</div>
+        <div>
+          Tipp: Hoste diese Datei z.B. auf GitHub Pages / Netlify / einem Webspace und teile dann die URL in OGame.
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries){
+        if(e.isIntersecting){
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      }
+    }, {threshold: 0.12});
+
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.transitionDelay = (i * 70) + 'ms';
+      io.observe(el);
+    });
+
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // copy helpers
+    const discordUrl = "https://discord.gg/V2PcsFPcF7";
+    const toast = document.getElementById('toast');
+
+    async function copyDiscord(){
+      try{
+        await navigator.clipboard.writeText(discordUrl);
+        if (toast) toast.textContent = "Link kopiert: " + discordUrl;
+        setTimeout(() => { if (toast) toast.textContent = ""; }, 1800);
+      }catch(err){
+        // fallback
+        const ta = document.createElement('textarea');
+        ta.value = discordUrl;
+        ta.setAttribute('readonly','');
+        ta.style.position='fixed';
+        ta.style.left='-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (toast) toast.textContent = "Link kopiert: " + discordUrl;
+        setTimeout(() => { if (toast) toast.textContent = ""; }, 1800);
+      }
+    }
+
+    document.getElementById('copyBtn')?.addEventListener('click', copyDiscord);
+    document.getElementById('copyBtn2')?.addEventListener('click', copyDiscord);
+  </script>
+</body>
+</html>
